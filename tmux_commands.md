@@ -25,18 +25,23 @@ Ctrl+b 然后 d
 # 1. 创建训练会话
 tmux new -s ood_training
 
-# 2. 激活环境并运行训练
+# 2. 激活环境并进入目录
 source ~/Aster-WorkSpace/CV/OOD_venv/bin/activate
 cd ~/Aster-WorkSpace/CV/OOD-Analysis
-python Resnet_OOD.py
 
-# 3. 分离会话（训练继续运行）
+# 3. 转换notebook为Python脚本（首次需要）
+jupyter nbconvert --to python Resnet_OOD.ipynb
+
+# 4. 运行训练（输出到日志文件）
+python Resnet_OOD.py 2>&1 | tee training.log
+
+# 5. 分离会话（训练继续运行）
 # 按 Ctrl+b，然后按 d
 
-# 4. 断开SSH（训练不会中断）
+# 6. 断开SSH（训练不会中断）
 exit
 
-# 5. 稍后重新连接
+# 7. 稍后重新连接查看进度
 ssh user@server
 tmux attach -t ood_training
 ```
