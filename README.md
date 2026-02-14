@@ -106,36 +106,105 @@ This project analyzes Neural Collapse (NC) phenomena in the trained model. Neura
 ### Neural Collapse Visualizations
 
 #### NC1: Variability Collapse
-| Figure | Description | Analysis |
-|--------|-------------|----------|
-| `NC1_variance.png` | Within-class variance bar chart and distribution | Partial NC1: Mean variance 0.100 |
-| `NC1_tsne.png` | t-SNE 2D visualization of feature clustering | Shows moderate class clustering |
 
-**Result**: Partial NC1 - Features show moderate collapse with mean variance 0.10 (expected <0.01 for strong NC1)
+**Figure: `NC1_variance.png`** (2 subplots)
+- **Subplot 1 - Bar Chart**: Within-class variance for all 100 classes
+  - X-axis: Class ID (0-99)
+  - Y-axis: Variance value
+  - Purpose: Show per-class collapse strength
+- **Subplot 2 - Histogram**: Distribution of variance values
+  - X-axis: Variance value
+  - Y-axis: Number of classes
+  - Purpose: Show overall variance concentration
+
+**Figure: `NC1_tsne.png`** (1 plot)
+- **t-SNE 2D Scatter Plot**: Feature space visualization
+  - X/Y-axis: t-SNE components
+  - Colors: Different classes
+  - Purpose: Visual verification of class clustering
+
+**Result**: Partial NC1 - Mean variance 0.100 (expected <0.01 for strong NC1)
+
+---
 
 #### NC2: Simplex ETF Structure
-| Figure | Description | Analysis |
-|--------|-------------|----------|
-| `NC2_etf_structure_not_centered.png` | INCORRECT: Non-centered cosine similarity analysis | Wrong result: Mean 0.54 (positive) |
-| `NC2_etf_structure.png` | CORRECTED: Centered cosine similarity, angle distribution, heatmap, deviation | Critical fix: Added global mean centering |
 
-**Important Note**: Initial NC2 implementation missing centering step. Corrected version properly centers class means relative to global mean before computing ETF structure.
+**Figure: `NC2_etf_structure_not_centered.png`** (4 subplots - INCORRECT, kept for learning)
+- Initial attempt without centering - Shows positive correlations (wrong)
 
-**Result**: After correction, proper ETF measurement relative to global center
+**Figure: `NC2_etf_structure.png`** (4 subplots - CORRECTED)
+- **Subplot 1 - Cosine Similarity Histogram**: Pairwise similarities between centered class means
+  - X-axis: Cosine similarity
+  - Y-axis: Number of class pairs
+  - Purpose: Verify ETF value -0.0101
+- **Subplot 2 - Angle Distribution**: Geometric angles between class centers
+  - X-axis: Angle (degrees)
+  - Y-axis: Number of class pairs
+  - Purpose: Verify uniform angular separation
+- **Subplot 3 - Heatmap**: Similarity matrix for 20 random classes
+  - X/Y-axis: Class IDs
+  - Colors: Cosine similarity (blue=negative, red=positive)
+  - Purpose: Visual verification of ETF structure
+- **Subplot 4 - ETF Deviation**: Distance from theoretical ETF
+  - X-axis: Deviation value
+  - Y-axis: Frequency
+  - Purpose: Measure deviation from perfect ETF
+
+**Critical Fix**: Added global mean centering before computing cosine similarities
+
+**Result**: Proper ETF measurement after centering correction
+
+---
 
 #### NC3: Self-Duality
-| Figure | Description | Analysis |
-|--------|-------------|----------|
-| `NC3_self_duality.png` | Scatter plot, correlation distribution, angle distribution, cross-correlation heatmap | Partial+ NC3: Mean correlation 0.887 |
 
-**Result**: Partial+ NC3 - Strong alignment between class means and classifier weights (correlation 0.887, all classes >0.8)
+**Figure: `NC3_self_duality.png`** (4 subplots)
+- **Subplot 1 - Scatter Plot**: Dimensional alignment for one sample class
+  - X-axis: Class mean values (512 dimensions)
+  - Y-axis: Classifier weight values (512 dimensions)
+  - Purpose: Show per-dimension correlation
+- **Subplot 2 - Correlation Histogram**: Pearson correlation for all 100 classes
+  - X-axis: Correlation coefficient
+  - Y-axis: Number of classes
+  - Purpose: Primary NC3 metric distribution
+- **Subplot 3 - Angle Distribution**: Geometric angles between means and weights
+  - X-axis: Angle (degrees)
+  - Y-axis: Number of classes
+  - Purpose: Secondary alignment metric (note: high correlation can coexist with moderate angles due to scaling)
+- **Subplot 4 - Cross-Correlation Heatmap**: Mean-weight correlation matrix for 20 classes
+  - X-axis: Weight class ID
+  - Y-axis: Mean class ID
+  - Colors: Correlation strength
+  - Purpose: Visual verification of diagonal alignment
+
+**Result**: Partial+ NC3 - Mean correlation 0.887 (all classes >0.8, std 0.011)
+
+**Note**: Angle of 50.92 degrees reflects varying scaling factors across classes, not misalignment. High correlation is the primary NC3 indicator.
+
+---
 
 #### NC4: Nearest Class Center
-| Figure | Description | Analysis |
-|--------|-------------|----------|
-| `NC4_nearest_center.png` | Consistency per class, distribution, mismatch heatmap, sample count analysis | Strong- NC4: 91.43% consistency |
 
-**Result**: Strong- NC4 - Model predictions closely match nearest-center decisions (91.43%, approaching 95% threshold)
+**Figure: `NC4_nearest_center.png`** (4 subplots)
+- **Subplot 1 - Consistency Bar Chart**: Per-class consistency percentage
+  - X-axis: Class ID (0-99)
+  - Y-axis: Consistency (%)
+  - Purpose: Show which classes follow nearest-center principle
+- **Subplot 2 - Consistency Histogram**: Distribution of consistency values
+  - X-axis: Consistency (%)
+  - Y-axis: Number of classes
+  - Purpose: Overall NC4 strength assessment
+- **Subplot 3 - Mismatch Heatmap**: Confusion-style matrix for 20 classes
+  - X-axis: Model prediction
+  - Y-axis: True label
+  - Colors: Mismatch count
+  - Purpose: Identify systematic deviations
+- **Subplot 4 - Sample Count vs Consistency**: Scatter plot
+  - X-axis: Samples per class
+  - Y-axis: Consistency (%)
+  - Purpose: Check if sample size affects consistency
+
+**Result**: Strong- NC4 - 91.43% overall consistency (61/100 classes >90%, all >80%)
 
 #### NC5: ID/OOD Orthogonality
 | Figure | Description | Status |
