@@ -10,7 +10,7 @@ ResNet-18 trained on CIFAR-100 for OOD detection methods and Neural Collapse phe
 - Memory: Sufficient for batch size 128
 
 ### Software
-- Python: 3.12
+- Python: 3.12 venv minconda
 - PyTorch: Latest stable version
 - torchvision: Latest stable version
 - CUDA: Compatible version
