@@ -65,47 +65,29 @@ Overfitting Gap: 11.28%
 - Successful overfitting control (gap reduced from 19% to 11%)
 - Good generalization achieved through regularization
 
-## Neural Collapse Analysis
+## Results and Analysis
 
-This project analyzes Neural Collapse (NC) phenomena in the trained model. Neural Collapse is a geometric phenomenon occurring in the final layers of well-trained neural networks.
+### Training Results
 
-### NC Phenomena Overview
+| Figure | Description | Result |
+|--------|-------------|--------|
+| `training_curves.png` | Loss and accuracy curves over 200 epochs | Train: 70.27%, Test: 58.99%, Gap: 11.28% |
 
-#### NC1: Variability Collapse
-- Within-class features collapse to class mean centers
+**Analysis**: Moderate test accuracy for CIFAR-100 (100-class problem). Strong regularization (dropout 0.55) successfully controlled overfitting, achieving good generalization.
+
+---
+
+## Neural Collapse Phenomena Analysis
+
+Neural Collapse (NC) is a geometric phenomenon occurring in the final layers of well-trained neural networks. This section analyzes NC1-NC5 phenomena in our trained ResNet-18 model.
+
+### NC1: Variability Collapse
+
+**Theory**: Within-class features collapse to class mean centers
 - Metric: Within-class variance
 - Expected: Variance approaching 0
 
-#### NC2: Simplex ETF (Equiangular Tight Frame)
-- Class mean centers form maximally separated geometric structure
-- Metric: Pairwise cosine similarity between centered class means
-- Expected: Cosine similarity = -1/(C-1) = -0.0101 for 100 classes
-
-#### NC3: Self-Duality
-- Class mean features align with classifier weights
-- Metric: Correlation between class means and final layer weights
-- Expected: Correlation approaching 1
-
-#### NC4: Nearest Class Center
-- Model predictions match nearest class center decisions
-- Metric: Consistency percentage
-- Expected: >95% consistency
-
-#### NC5: ID/OOD Orthogonality
-- In-distribution and out-of-distribution data are orthogonal in feature space
-- Metric: Spatial separation in t-SNE/feature space
-- Expected: Clear separation between ID and OOD
-
-## Visualization Figures
-
-### Training Results
-| Figure | Description | Related Question |
-|--------|-------------|-----------------|
-| `training_curves.png` | Loss and accuracy curves over 200 epochs | Q1: Model Training |
-
-### Neural Collapse Visualizations
-
-#### NC1: Variability Collapse
+**Visualizations**:
 
 **Figure: `NC1_variance.png`** (2 subplots)
 - **Subplot 1 - Bar Chart**: Within-class variance for all 100 classes
@@ -127,7 +109,13 @@ This project analyzes Neural Collapse (NC) phenomena in the trained model. Neura
 
 ---
 
-#### NC2: Simplex ETF Structure
+### NC2: Simplex ETF (Equiangular Tight Frame)
+
+**Theory**: Class mean centers form maximally separated geometric structure
+- Metric: Pairwise cosine similarity between centered class means
+- Expected: Cosine similarity = -1/(C-1) = -0.0101 for 100 classes
+
+**Visualizations**:
 
 **Figure: `NC2_etf_structure_not_centered.png`** (4 subplots - INCORRECT, kept for learning)
 - Initial attempt without centering - Shows positive correlations (wrong)
@@ -156,7 +144,13 @@ This project analyzes Neural Collapse (NC) phenomena in the trained model. Neura
 
 ---
 
-#### NC3: Self-Duality
+### NC3: Self-Duality
+
+**Theory**: Class mean features align with classifier weights
+- Metric: Correlation between class means and final layer weights
+- Expected: Correlation approaching 1
+
+**Visualizations**:
 
 **Figure: `NC3_self_duality.png`** (4 subplots)
 - **Subplot 1 - Scatter Plot**: Dimensional alignment for one sample class
@@ -183,7 +177,13 @@ This project analyzes Neural Collapse (NC) phenomena in the trained model. Neura
 
 ---
 
-#### NC4: Nearest Class Center
+### NC4: Nearest Class Center
+
+**Theory**: Model predictions match nearest class center decisions
+- Metric: Consistency percentage
+- Expected: >95% consistency
+
+**Visualizations**:
 
 **Figure: `NC4_nearest_center.png`** (4 subplots)
 - **Subplot 1 - Consistency Bar Chart**: Per-class consistency percentage
@@ -206,10 +206,15 @@ This project analyzes Neural Collapse (NC) phenomena in the trained model. Neura
 
 **Result**: Strong- NC4 - 91.43% overall consistency (61/100 classes >90%, all >80%)
 
-#### NC5: ID/OOD Orthogonality
-| Figure | Description | Status |
-|--------|-------------|--------|
-| To be implemented | t-SNE visualization, distance distributions, orthogonality metrics | Pending |
+---
+
+### NC5: ID/OOD Orthogonality
+
+**Theory**: In-distribution and out-of-distribution data are orthogonal in feature space
+- Metric: Spatial separation in t-SNE/feature space
+- Expected: Clear separation between ID and OOD
+
+**Status**: To be implemented
 
 ## Key Findings
 
