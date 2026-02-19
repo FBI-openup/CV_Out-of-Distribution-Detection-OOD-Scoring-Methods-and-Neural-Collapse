@@ -259,3 +259,52 @@ OOD-Analysis/
 └── data/                                 # CIFAR-100 dataset (not tracked)
 ```
 
+## Usage
+
+### Training
+```bash
+# Activate virtual environment
+source ~/Aster-WorkSpace/CV/OOD_venv/bin/activate
+
+# Run training (200 epochs, ~12-15 hours on GPU)
+python Resnet_OOD.py
+
+# Or use Jupyter notebook
+jupyter notebook Resnet_OOD.ipynb
+```
+
+### Remote Training with tmux
+See `tmux_commands.md` for detailed instructions on remote training setup and session management.
+
+### Neural Collapse Analysis
+Run the corresponding cells in `Resnet_OOD.ipynb`:
+- NC1: Cells for feature extraction and variance analysis
+- NC2: Cells for centered ETF structure analysis (corrected version)
+- NC3: Cells for self-duality verification
+- NC4: Cells for nearest-center consistency check
+- NC5: To be implemented
+
+## Future Work
+
+1. Complete NC5 (ID/OOD Orthogonality) analysis
+2. Implement bonus task: NC analysis on earlier layers (layer1, layer2, layer3)
+3. Compare OOD detection methods: MSP, Max Logit, Energy Score, Mahalanobis, ViM, NECO
+4. Explore training with reduced regularization for stronger NC phenomena
+5. Analyze trade-off between NC strength and generalization quantitatively
+
+## References
+
+- Neural Collapse literature (papers documenting NC1-NC5 phenomena)
+- ResNet architecture (He et al.)
+- CIFAR-100 dataset
+- OOD detection methods
+
+## Authors
+
+Boyuan Zhang
+Ecole Polytechnique
+2024
+
+## License
+
+Academic use only
