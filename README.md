@@ -1,4 +1,4 @@
-# Out-of-Distribution Detection and Neural Collapse Analysis
+# Out-of-Distribution Detection and Neural Collapse Analysis(old data from before NC5)
 
 ResNet-18 trained on CIFAR-100 for OOD detection methods and Neural Collapse phenomena analysis.
 
